@@ -53,9 +53,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     authorizeRequests()
 
                     .antMatchers("/token/*", "/").permitAll()
+                    .antMatchers(HttpMethod.POST,"/register").permitAll()
+                    .antMatchers(HttpMethod.GET ,"/allUsers").permitAll()
+                    .antMatchers(HttpMethod.DELETE,"/deleteUser/*").permitAll()
 
-                    .antMatchers(HttpMethod.GET,"/allUsers", "/user/*").hasAuthority("KORISNIK")
-                    .antMatchers(HttpMethod.POST,"/register").hasAuthority("ADMIN")
 
                     .anyRequest().authenticated()
                     .and()

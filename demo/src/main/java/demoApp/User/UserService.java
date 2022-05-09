@@ -20,8 +20,6 @@ public class UserService implements UserDetailsService, UserServiceInterface {
     @Autowired
     private UserRepository userRepository;
 
-    //private EncriptionService encriptionService;
-    @Lazy
     @Autowired
     private BCryptPasswordEncoder bcryptEncoder;
 
@@ -88,6 +86,10 @@ public class UserService implements UserDetailsService, UserServiceInterface {
             }
         }
         return null;
+    }
+    @Override
+    public void delete(Integer id) {
+        this.userRepository.deleteById(id);
     }
 
 }

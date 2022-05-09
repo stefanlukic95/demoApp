@@ -10,6 +10,7 @@ public interface UserServiceInterface {
     User insertUser(User user);
     User saveUser(User user);
     User findByConfirmationToken(String token);
+    void delete(Integer id);
 
 
 

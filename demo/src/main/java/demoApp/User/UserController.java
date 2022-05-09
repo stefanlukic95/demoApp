@@ -111,6 +111,14 @@ public class UserController {
         return redirectView;
     }
 
+    @RequestMapping(
+            method = RequestMethod.DELETE,
+            value = "/deleteUser/{id}"
+    )
+    public ResponseEntity<User> deleteUser(@PathVariable("id") Integer id){
+        this.userServiceInterface.delete(id);
+        return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
+    }
 
 
 
