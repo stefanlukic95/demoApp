@@ -46,7 +46,7 @@ public class User {
         this.email = email;
         this.adress = adress;
         this.roles = roles;
-        this.enabled = enabled;
+        this.enabled = false;
         this.confirmationToken="";
     }
 

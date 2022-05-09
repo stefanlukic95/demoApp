@@ -54,7 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                     .antMatchers("/token/*", "/").permitAll()
                     .antMatchers(HttpMethod.POST,"/register").permitAll()
-                    .antMatchers(HttpMethod.GET ,"/allUsers").permitAll()
+                    .antMatchers(HttpMethod.GET ,"/allUsers","/confirm","/user/*").permitAll()
                     .antMatchers(HttpMethod.DELETE,"/deleteUser/*").permitAll()
 
 

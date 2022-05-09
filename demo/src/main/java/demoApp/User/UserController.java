@@ -9,8 +9,6 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,13 +18,11 @@ public class UserController {
 
     @Autowired
     private UserServiceInterface userServiceInterface;
-
     @Autowired
     private EmailService emailService;
 
     @Autowired
     private BCryptPasswordEncoder bcryptEncoder;
-
 
     public UserController(UserServiceInterface userServiceInterface) {
         this.userServiceInterface = userServiceInterface;
@@ -76,10 +72,7 @@ public class UserController {
         }
 
         user.setEnabled(false);
-
-
         user.setConfirmationToken(UUID.randomUUID().toString());
-
 
         String appUrl = "http://localhost:8080";
 
@@ -90,8 +83,6 @@ public class UserController {
                 + appUrl + "/confirm?token=" + user.getConfirmationToken());
         registrationEmail.setFrom("poseti.me.isa@gmail.com");
         emailService.sendEmail(registrationEmail);
-
-
 
         User insertedUser = userServiceInterface.insertUser(user);
         return new ResponseEntity<User>(insertedUser, HttpStatus.OK);
