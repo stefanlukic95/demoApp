@@ -4,14 +4,14 @@ import React, { Component } from 'react';
 import { ButtonGroup, Container, Table } from 'reactstrap';
 import { Button } from 'bootstrap';
 import { Link } from 'react-router-dom';
-import AppNavbar from './AppNavbar';
+import AppNavbar from './components/AppNavbar';
 import { BrowserRouter, Router } from 'react-router-dom'
 import { Switch } from 'react-router-dom';
 import { Route } from 'react-router-dom';
-import Home from './Home';
-import UserList from './UserList';
-import UserEdit from './UserEdit';
-import LoginForm from './LoginForm';
+import Home from './components/Home';
+import UserList from './components/UserList';
+import UserEdit from './components/UserEdit';
+import LoginForm from './components/LoginForm';
 
 
 

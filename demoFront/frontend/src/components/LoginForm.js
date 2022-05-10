@@ -10,14 +10,15 @@ const LoginForm = () => {
   const handleSubmit = async e => {
     e.preventDefault();
     const user = { username, password };
-    // send the username and password to the server
+
     const response = await axios.post(
-      "http://localhost:8080/login",
+      
+      "http://localhost:8080/generate-token",
+      
       user
     );
-    // set the state of the user
+
     setUser(response.data)
-    // store the user in localStorage
     localStorage.setItem('user', response.data)
     console.log(response.data)
   };
@@ -40,12 +41,10 @@ const LoginForm = () => {
 
 
 
-// if there's a user show the message below
   if (user) {
     return <div>{user.name} is loggged in</div>;
   }
 
-  // if there's no user, show the login form
   return (
     <form onSubmit={handleSubmit}>
       <label htmlFor="username">Username: </label>
@@ -56,7 +55,7 @@ const LoginForm = () => {
         onChange={({ target }) => setUsername(target.value)}
       />
       <div>
-        <label htmlFor="password">password: </label>
+        <label htmlFor="password">Password: </label>
         <input
           type="password"
           value={password}
@@ -65,7 +64,7 @@ const LoginForm = () => {
         />
       </div>
       <button type="submit">Login</button>
-      <button onClick={handleLogout}>logout</button>
+      <button onClick={handleLogout}>Logout</button>
     </form>
   );
 };

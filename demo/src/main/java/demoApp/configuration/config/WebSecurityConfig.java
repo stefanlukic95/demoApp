@@ -67,7 +67,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         @Override
         public void configure(WebSecurity web) throws Exception {
-            web.ignoring().antMatchers("/allUsers","/generate-token","/register","/login");
+            web.ignoring().antMatchers("/allUsers","/generate-token","/register","/login","/*");
 
         }
 

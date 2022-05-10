@@ -22,7 +22,8 @@ class UserList extends Component {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+            
             }
         }).then(() => {
             let updatedUsers = [...this.state.users].filter(i => i.id !== id);
