@@ -1,8 +1,10 @@
-package demoApp.User;
+package demoApp.service;
+
+import demoApp.model.User;
 
 import java.util.List;
 
-public interface UserServiceInterface {
+public interface UserInterface {
 
     List<User> findAllUsers();
     User findUserById(Integer id);

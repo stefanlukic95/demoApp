@@ -1,7 +1,9 @@
 package demoApp.User.config;
 
-import demoApp.User.User;
-import demoApp.User.UserService;
+
+import demoApp.model.User;
+import demoApp.service.UserService;
+
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

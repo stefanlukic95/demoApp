@@ -1,7 +1,9 @@
 package demoApp.User.config;
 
-import demoApp.User.User;
-import demoApp.User.UserService;
+
+import demoApp.model.User;
+import demoApp.service.UserService;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

@@ -1,5 +1,7 @@
-package demoApp.User;
+package demoApp.service;
 
+import demoApp.model.User;
+import demoApp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service(value = "userService")
-public class UserService implements UserDetailsService, UserServiceInterface {
+public class UserService implements UserDetailsService, UserInterface {
 
     @Autowired
     private UserRepository userRepository;

@@ -1,6 +1,9 @@
-package demoApp.User;
+package demoApp.controller;
 
+import demoApp.service.UserInterface;
 import demoApp.User.registration.EmailService;
+import demoApp.model.User;
+import demoApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,15 +20,15 @@ import java.util.UUID;
 public class UserController {
 
     @Autowired
-    private UserServiceInterface userServiceInterface;
+    private UserInterface userInterface;
     @Autowired
     private EmailService emailService;
 
     @Autowired
     private BCryptPasswordEncoder bcryptEncoder;
 
-    public UserController(UserServiceInterface userServiceInterface) {
-        this.userServiceInterface = userServiceInterface;
+    public UserController(UserService userService) {
+        this.userInterface = userService;
     }
 
     @RequestMapping(
@@ -34,7 +37,7 @@ public class UserController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<List<User>> getAllUsers() {
-        List<User> allUsers = userServiceInterface.findAllUsers();
+        List<User> allUsers = userInterface.findAllUsers();
 
         return new ResponseEntity<List<User>>(allUsers, HttpStatus.OK);
     }
@@ -46,7 +49,7 @@ public class UserController {
     )
     public ResponseEntity<User> getUserById(@PathVariable("id") Integer id) {
 
-        User user = this.userServiceInterface.findUserById(id);
+        User user = this.userInterface.findUserById(id);
         if(user == null){
             return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
         }
@@ -62,7 +65,7 @@ public class UserController {
     )
     public ResponseEntity<User> insertUser(@RequestBody User user){
 
-        User findUser = userServiceInterface.findUserByEmail(user.getEmail());
+        User findUser = userInterface.findUserByEmail(user.getEmail());
 
         if(findUser != null) {
 
@@ -84,7 +87,7 @@ public class UserController {
         registrationEmail.setFrom("poseti.me.isa@gmail.com");
         emailService.sendEmail(registrationEmail);
 
-        User insertedUser = userServiceInterface.insertUser(user);
+        User insertedUser = userInterface.insertUser(user);
         return new ResponseEntity<User>(insertedUser, HttpStatus.OK);
     }
 
@@ -94,9 +97,9 @@ public class UserController {
             value = "/confirm"
     )
     public RedirectView confirm(@RequestParam("token") String confirmationToken){
-        User user = userServiceInterface.findByConfirmationToken(confirmationToken);
+        User user = userInterface.findByConfirmationToken(confirmationToken);
         user.setEnabled(true);
-        userServiceInterface.saveUser(user);
+        userInterface.saveUser(user);
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl("http://localhost:4200/login");
         return redirectView;
@@ -107,7 +110,7 @@ public class UserController {
             value = "/deleteUser/{id}"
     )
     public ResponseEntity<User> deleteUser(@PathVariable("id") Integer id){
-        this.userServiceInterface.delete(id);
+        this.userInterface.delete(id);
         return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
     }
 
