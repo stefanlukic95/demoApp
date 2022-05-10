@@ -1,4 +1,4 @@
-package demoApp.User.config;
+package demoApp.configuration.config;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletResponse;

@@ -1,10 +1,9 @@
-package demoApp.User.config;
+package demoApp.configuration.config;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -53,10 +52,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     authorizeRequests()
 
                     .antMatchers("/token/*", "/").permitAll()
-                    .antMatchers(HttpMethod.POST,"/register").permitAll()
-                    .antMatchers(HttpMethod.GET ,"/allUsers","/confirm","/user/*").permitAll()
+                    .antMatchers(HttpMethod.POST,"/register","/login").permitAll()
+                    .antMatchers(HttpMethod.GET ,"/allUsers","/confirm","/userId/*","/userEmail/*").permitAll()
                     .antMatchers(HttpMethod.DELETE,"/deleteUser/*").permitAll()
-
+                    .antMatchers(HttpMethod.PUT,"/userUpdate/*").permitAll()
 
                     .anyRequest().authenticated()
                     .and()
@@ -68,7 +67,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         @Override
         public void configure(WebSecurity web) throws Exception {
-            web.ignoring().antMatchers("/allUsers","/user/*/","/generate-token","/register");
+            web.ignoring().antMatchers("/allUsers","/generate-token","/register","/login");
 
         }
 

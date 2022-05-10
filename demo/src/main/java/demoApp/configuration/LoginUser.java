@@ -1,4 +1,4 @@
-package demoApp.User;
+package demoApp.configuration;
 
 public class LoginUser {
 

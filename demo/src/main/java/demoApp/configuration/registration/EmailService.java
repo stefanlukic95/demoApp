@@ -1,4 +1,4 @@
-package demoApp.User.registration;
+package demoApp.configuration.registration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;

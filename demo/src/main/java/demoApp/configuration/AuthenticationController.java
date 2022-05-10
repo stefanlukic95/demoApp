@@ -1,6 +1,6 @@
-package demoApp.User;
+package demoApp.configuration;
 
-import demoApp.User.config.JwtTokenUtil;
+import demoApp.configuration.config.JwtTokenUtil;
 
 import demoApp.model.User;
 import demoApp.service.UserService;

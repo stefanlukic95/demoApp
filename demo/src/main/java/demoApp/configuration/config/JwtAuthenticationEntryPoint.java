@@ -1,4 +1,4 @@
-package demoApp.User.config;
+package demoApp.configuration.config;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
@@ -14,7 +14,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
 
     @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
     }
 }

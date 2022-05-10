@@ -1,4 +1,4 @@
-package demoApp.User.config;
+package demoApp.configuration.config;
 
 
 import demoApp.model.User;
@@ -18,8 +18,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.function.Function;
 
-import static demoApp.User.Constants.ACCESS_TOKEN_VALIDITY_SECONDS;
-import static demoApp.User.Constants.SIGNING_KEY;
+import static demoApp.configuration.Constants.ACCESS_TOKEN_VALIDITY_SECONDS;
+import static demoApp.configuration.Constants.SIGNING_KEY;
 
 @Component
 public class JwtTokenUtil {

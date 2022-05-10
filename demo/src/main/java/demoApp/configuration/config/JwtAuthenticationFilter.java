@@ -1,4 +1,4 @@
-package demoApp.User.config;
+package demoApp.configuration.config;
 
 
 import demoApp.model.User;
@@ -23,8 +23,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static demoApp.User.Constants.HEADER_STRING;
-import static demoApp.User.Constants.TOKEN_PREFIX;
+import static demoApp.configuration.Constants.HEADER_STRING;
+import static demoApp.configuration.Constants.TOKEN_PREFIX;
 
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
@@ -50,9 +50,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 logger.error("an error occured during getting username from token", e);
             } catch (ExpiredJwtException e) {
                 logger.warn("the token is expired and not valid anymore", e);
-            /*} catch(SignatureException e){
-                logger.error("Authentication Failed. Username or Password not valid.");
-            }*/
             }
         } else {
             logger.warn("couldn't find bearer string, will ignore the header");
@@ -62,8 +59,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
             User u = userService.findUserByEmail(username);
             List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-            for(String r: u.getRoles()) {
-                authorities.add(new SimpleGrantedAuthority(r));
+            for(String roles: u.getRoles()) {
+                authorities.add(new SimpleGrantedAuthority(roles));
             }
             if (jwtTokenUtil.validateToken(authToken, userDetails)) {
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, authorities);
@@ -72,7 +69,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }
-
         chain.doFilter(req, res);
     }
 }

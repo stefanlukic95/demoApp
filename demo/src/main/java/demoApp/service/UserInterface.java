@@ -11,8 +11,10 @@ public interface UserInterface {
     User findUserByEmail(String email);
     User insertUser(User user);
     User saveUser(User user);
+
     User findByConfirmationToken(String token);
     void delete(Integer id);
+
 
 
 
