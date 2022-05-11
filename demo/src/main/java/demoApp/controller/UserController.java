@@ -56,7 +56,7 @@ public class UserController {
     }
 
     @RequestMapping(
-            value = "/register",
+            value = "/userId",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE
@@ -90,7 +90,7 @@ public class UserController {
 
     @RequestMapping(
             method = RequestMethod.DELETE,
-            value = "/deleteUser/{id}"
+            value = "/userId/{id}"
     )
     public ResponseEntity<User> deleteUser(@PathVariable("id") Integer id){
         this.userInterface.delete(id);
@@ -109,7 +109,7 @@ public class UserController {
 
     @RequestMapping(
             method = RequestMethod.PUT,
-            value = "/userUpdate/{id}",
+            value = "/userId/{id}",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
@@ -121,6 +121,7 @@ public class UserController {
         }
         userById.setName(user.getName());
         userById.setSurname(user.getSurname());
+        userById.setAdress(user.getAdress());
         User updatedUser = this.userInterface.saveUser(userById);
 
         return new ResponseEntity<>(HttpStatus.OK);

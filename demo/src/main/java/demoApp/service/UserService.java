@@ -73,6 +73,9 @@ public class UserService implements UserDetailsService, UserInterface {
     @Override
     public User insertUser(User user) {
         user.setPassword(bcryptEncoder.encode(user.getPassword()));
+        List<String> roles = new ArrayList<String>();
+        roles.add("USER");
+        user.setRoles(roles);
         user.setEnabled(false);
         user.setConfirmationToken(UUID.randomUUID().toString());
 
@@ -91,6 +94,7 @@ public class UserService implements UserDetailsService, UserInterface {
 
     @Override
     public User saveUser(User user) {
+
         return userRepository.save(user);
     }
 
