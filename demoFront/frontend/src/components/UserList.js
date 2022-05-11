@@ -16,6 +16,7 @@ class UserList extends Component {
             .then(response => response.json())
             .then(data => this.setState({users: data}));
     }
+    
 
     async remove(id) {
         await fetch(`/userId/${id}`, {
@@ -31,6 +32,7 @@ class UserList extends Component {
         });
     }
     
+
     render() {
         const {users, isLoading} = this.state;
     
@@ -41,7 +43,9 @@ class UserList extends Component {
         const userList = users.map(user => {
             return <tr key={user.id}>
                 <td style={{whiteSpace: 'nowrap'}}>{user.name}</td>
+                <td>{user.surname}</td>
                 <td>{user.email}</td>
+               
                 <td>
                     <ButtonGroup>
                         <Button size="sm" color="primary" tag={Link} to={"/userId/" + user.id}>Edit</Button>
@@ -56,13 +60,14 @@ class UserList extends Component {
                 <AppNavbar/>
                 <Container fluid>
                     <div className="float-right">
-                        <Button color="success" tag={Link} to="/allUsers/new">Add Client</Button>
+                        <Button color="success" tag={Link} to="/allUsers/new">Register</Button>
                     </div>
                     <h3>Users</h3>
                     <Table className="mt-4">
                         <thead>
                         <tr>
                             <th width="30%">Name</th>
+                            <th width="30%">Surname</th>
                             <th width="30%">Email</th>
                    
                         </tr>

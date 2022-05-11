@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
-import AppNavbar from './AppNavbar';
+import AppNavbar from '../components/AppNavbar';
 
 class UserEdit extends Component {
 
     emptyItem = {
         name: '',
-        email: ''
+        surname:'',
+        password:'',
+        email: '',
+        adress:''
     };
 
     constructor(props) {
@@ -54,7 +57,7 @@ class UserEdit extends Component {
 
     render() {
         const {item} = this.state;
-        const title = <h2>{item.id ? 'Edit Client' : 'Add Client'}</h2>;
+        const title = <h2>{item.id ? 'Edit Client' : 'Register'}</h2>;
     
         return <div>
             <AppNavbar/>
@@ -67,9 +70,25 @@ class UserEdit extends Component {
                                onChange={this.handleChange} autoComplete="name"/>
                     </FormGroup>
                     <FormGroup>
+                        <Label for="surname">Surname</Label>
+                        <Input type="text" name="surname" id="surname" value={item.surname || ''}
+                               onChange={this.handleChange} autoComplete="surname"/>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="oasswird">Password</Label>
+                        <Input type="passwword" name="password" id="password" value={item.password || ''}
+                               onChange={this.handleChange} autoComplete="password"/>
+                    </FormGroup>
+                   
+                    <FormGroup>
                         <Label for="email">Email</Label>
                         <Input type="text" name="email" id="email" value={item.email || ''}
                                onChange={this.handleChange} autoComplete="email"/>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="adress">Adress</Label>
+                        <Input type="text" name="adress" id="adress" value={item.adress || ''}
+                               onChange={this.handleChange} autoComplete="adress"/>
                     </FormGroup>
                     <FormGroup>
                         <Button color="primary" type="submit">Save</Button>{' '}
