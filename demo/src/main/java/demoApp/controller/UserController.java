@@ -84,7 +84,7 @@ public class UserController {
         User user = userInterface.findByConfirmationToken(confirmationToken);
         userInterface.saveUser(user);
         RedirectView redirectView = new RedirectView();
-        redirectView.setUrl("http://localhost:4200/login");
+        redirectView.setUrl("http://localhost/3000/login");
         return redirectView;
     }
 

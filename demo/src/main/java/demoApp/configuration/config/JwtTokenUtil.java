@@ -59,8 +59,8 @@ public class JwtTokenUtil {
 
             Claims claims = Jwts.claims().setSubject(subject);
             List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-            User u = userService.findUserByEmail(subject);
-            for(String r: u.getRoles()) {
+            User user = userService.findUserByEmail(subject);
+            for(String r: user.getRoles()) {
                 authorities.add(new SimpleGrantedAuthority(r));
             }
             claims.put("scopes", authorities);
