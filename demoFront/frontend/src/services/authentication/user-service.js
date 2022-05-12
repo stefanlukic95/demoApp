@@ -5,11 +5,11 @@ const API_URL = 'http://localhost:8080/';
 
 class UserService {
   getPublicContent() {
-    return axios.get(API_URL + 'all');
+    return axios.get(API_URL + 'allUsers', {headers: authHeader()});
   }
 
   getUserBoard() {
-    return axios.get(API_URL + 'user', { headers: authHeader() });
+    return axios.get(API_URL + 'profile', { headers: authHeader() });
   }
 
   getAdminBoard() {

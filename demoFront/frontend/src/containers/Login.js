@@ -1,17 +1,7 @@
 import React, { Component } from "react";
 import { Form, Input } from "reactstrap";
-import authService from "../services/auth-service";
+import authService from "../services/authentication/auth-service";
 
-
-const required = value => {
-  if (!value) {
-    return (
-      <div className="alert alert-danger" role="alert">
-        This field is required!
-      </div>
-    );
-  }
-};
 
 export default class Login extends Component {
   constructor(props) {
@@ -48,15 +38,11 @@ export default class Login extends Component {
       loading: true
     });
 
-    //this.form.validateAll();
-
-    //if (this.checkBtn.context._errors.length === 0) {
       authService.login(this.state.username, this.state.password).then(
         () => {
-          this.props.history.push("/allUsers");
+          this.props.history.push("/profile");
           console.log(this.state.username)
-          window.location.reload();
-          
+          console.log(this.state.password)          
         },
         error => {
           const resMessage =
@@ -72,12 +58,6 @@ export default class Login extends Component {
           });
         }
       );
-      
-    // } else {
-    //   this.setState({
-    //     loading: false
-    //   });
-    // }
   }
 
   render() {
@@ -98,7 +78,6 @@ export default class Login extends Component {
                 name="username"
                 value={this.state.username}
                 onChange={this.onChangeUsername}
-                //validations={[required]}
               />
             </div>
 
@@ -110,7 +89,6 @@ export default class Login extends Component {
                 name="password"
                 value={this.state.password}
                 onChange={this.onChangePassword}
-                //validations={[required]}
               />
             </div>
 
@@ -133,12 +111,6 @@ export default class Login extends Component {
                 </div>
               </div>
             )}
-            {/* <CheckButton
-              style={{ display: "none" }}
-              ref={c => {
-                this.checkBtn = c;
-              }}
-            /> */}
           </Form>
         </div>
       </div>

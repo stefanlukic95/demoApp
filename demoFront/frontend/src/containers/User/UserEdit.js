@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
-import AppNavbar from '../components/AppNavbar';
+import AppNavbar from '../../components/AppNavbar';
+
 
 class UserEdit extends Component {
 
@@ -10,7 +11,8 @@ class UserEdit extends Component {
         surname:'',
         password:'',
         email: '',
-        adress:''
+        adress:'',
+        roles:['']
     };
 
     constructor(props) {
@@ -89,6 +91,11 @@ class UserEdit extends Component {
                         <Label for="adress">Adress</Label>
                         <Input type="text" name="adress" id="adress" value={item.adress || ''}
                                onChange={this.handleChange} autoComplete="adress"/>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="roles">Role</Label>
+                        <Input type="text" name="roles" id="roles" value={item.roles || ''}
+                               onChange={this.handleChange} autoComplete="roles"/>
                     </FormGroup>
                     <FormGroup>
                         <Button color="primary" type="submit">Save</Button>{' '}

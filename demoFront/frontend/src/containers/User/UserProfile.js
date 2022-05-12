@@ -1,24 +1,33 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import authService from "../services/auth-service";
-
+import authService from "../../services/authentication/auth-service";   
 
 export default class Profile extends Component {
   constructor(props) {
     super(props);
+    this.logOut = this.logOut.bind(this);
 
     this.state = {
       redirect: null,
-      userReady: false,
-      currentUser: { username: "" }
+      userReady:false,
+      currentUser: {username: ""}
     };
   }
 
   componentDidMount() {
     const currentUser = authService.getCurrentUser();
+    //console.log(currentUser)
 
     if (!currentUser) this.setState({ redirect: "/home" });
     this.setState({ currentUser: currentUser, userReady: true })
+   
+  }
+  
+  logOut() {
+    authService.logout();
+    this.setState({
+      currentUser: undefined,
+    });
   }
 
   render() {
@@ -29,18 +38,17 @@ export default class Profile extends Component {
     const { currentUser } = this.state;
 
     return (
-      <div className="container">
-        {(this.state.userReady) ?
+      <div >
         <div>
         <header className="jumbotron">
           <h3>
-            <strong>{currentUser.username}</strong> Profile
+            <strong>User:</strong> {" "}
+            {currentUser.username}
           </h3>
         </header>
         <p>
           <strong>Token:</strong>{" "}
-          {currentUser.accessToken.substring(0, 0)} ...{" "}
-          {currentUser.accessToken.substr(currentUser.accessToken.length - 20)}
+          {currentUser.token}{" "}
         </p>
         <p>
           <strong>Id:</strong>{" "}
@@ -55,7 +63,8 @@ export default class Profile extends Component {
           {currentUser.roles &&
             currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
         </ul>
-      </div>: null}
+        <button   className="btn btn-primary btn-block" onClick={this.logOut}>Logout </button>
+      </div>
       </div>
     );
   }

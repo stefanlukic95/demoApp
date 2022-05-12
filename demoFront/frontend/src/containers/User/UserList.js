@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Button, ButtonGroup, Container, Table } from 'reactstrap';
-import AppNavbar from './AppNavbar';
+
 import { Link } from 'react-router-dom';
+import AppNavbar from '../../components/AppNavbar';
+
 
 class UserList extends Component {
 
@@ -15,9 +17,9 @@ class UserList extends Component {
         fetch('/allUsers')
             .then(response => response.json())
             .then(data => this.setState({users: data}));
+            
     }
     
-
     async remove(id) {
         await fetch(`/userId/${id}`, {
             method: 'DELETE',
@@ -32,7 +34,6 @@ class UserList extends Component {
         });
     }
     
-
     render() {
         const {users, isLoading} = this.state;
     
@@ -42,9 +43,10 @@ class UserList extends Component {
     
         const userList = users.map(user => {
             return <tr key={user.id}>
-                <td style={{whiteSpace: 'nowrap'}}>{user.name}</td>
+                <td>{user.name}</td>
                 <td>{user.surname}</td>
                 <td>{user.email}</td>
+                <td>{user.roles}</td>
                
                 <td>
                     <ButtonGroup>
@@ -59,17 +61,17 @@ class UserList extends Component {
             <div>
                 <AppNavbar/>
                 <Container fluid>
-                    <div className="float-right">
-                        <Button color="success" tag={Link} to="/allUsers/new">Register</Button>
+                    <div>
+                        <Button size="sm" color="success" tag={Link} to="/allUsers/new">Register</Button>
                     </div>
                     <h3>Users</h3>
-                    <Table className="mt-4">
+                    <Table>
                         <thead>
                         <tr>
                             <th width="30%">Name</th>
                             <th width="30%">Surname</th>
                             <th width="30%">Email</th>
-                   
+                            <th width="30%">Role</th>
                         </tr>
                         </thead>
                         <tbody>

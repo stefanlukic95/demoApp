@@ -9,35 +9,34 @@ import { BrowserRouter, Router } from 'react-router-dom'
 import { Switch } from 'react-router-dom';
 import { Route } from 'react-router-dom';
 import Home from './components/Home';
-
-import UserEdit from './containers/UserEdit';
-import Login from './components/Login';
-import UserList from './components/UserList';
-import authService from './services/auth-service';
 import eventBus from './common/EventBus';
-import Profile from './components/UserProfile';
+import { HashRouter } from 'react-router-dom';
+import Login from './containers/Login';
+import Profile from './containers/User/UserProfile';
+import UserList from './containers/User/UserList';
+import UserEdit from './containers/User/UserEdit';
+import authService from './services/authentication/auth-service';
 
 
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.logOut = this.logOut.bind(this);
 
     this.state = {
-      showAdminBoard: false,
       currentUser: undefined,
     };
   }
-
   componentDidMount() {
     const user = authService.getCurrentUser();
 
     if (user) {
       this.setState({
         currentUser: user,
-        showAdminBoard: user.roles.includes("ADMIN"),
+
       });
+      //bude null a posle ovog undefined, zasto je undefined? user.username a u user je samo token
+      console.log(user.username,"token")
     }
     
     eventBus.on("logout", () => {
@@ -56,20 +55,15 @@ class App extends Component {
       currentUser: undefined,
     });
   }
-
     render() {
-
       const { currentUser, showAdminBoard } = this.state;
-      return (
+
+    return (
+    <div>
+
+
         <div> 
-          {showAdminBoard && (
-              <li className="nav-item">
-                <Link to={"/admin"} className="nav-link">
-                  Admin Board
-                </Link>
-              </li>
-            )}
-          <BrowserRouter>
+          <HashRouter>
             <Switch>
               <Route path='/' exact={true} component={Home}/>
               <Route path='/allUsers' exact={true} component={UserList}/>
@@ -77,9 +71,12 @@ class App extends Component {
               <Route path='/allUsers/new' component={UserEdit}/>
               <Route path='/login' exact={true} component={Login}/>
               <Route path='/profile' exact={true} component={Profile}></Route>
+              <Route path='/home' exact={true} component={Home}></Route>
              
             </Switch>
-          </BrowserRouter>
+          </HashRouter>
+          </div>
+
           </div>
       )
     }
