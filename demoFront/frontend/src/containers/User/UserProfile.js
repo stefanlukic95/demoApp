@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import AppNavBar from "../../components/AppNavbar";
 import authService from "../../services/authentication/auth-service";   
 
 export default class Profile extends Component {
@@ -10,7 +9,6 @@ export default class Profile extends Component {
 
     this.state = {
       redirect: null,
-      userReady:false,
       currentUser: {username: ""},
       currentToken: {token: ""}
     };
@@ -18,11 +16,7 @@ export default class Profile extends Component {
 
   componentDidMount() {
     const currentUser = authService.getCurrentUser();
-    console.log(currentUser)
-
-    if (!currentUser) this.setState({ redirect: "/home" });
-    this.setState({ currentToken: currentUser, currentUser: currentUser.user, userReady: true })
-    
+    this.setState({ currentToken: currentUser, currentUser: currentUser.user})
   }
 
   logOut() {
@@ -32,6 +26,7 @@ export default class Profile extends Component {
       redirect: "/home"
 
     });
+    window.location.reload()
   }
 
   render() {
@@ -68,7 +63,6 @@ export default class Profile extends Component {
           {currentUser.roles &&
             currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
         </ul>
-        <button   className="btn btn-primary btn-block" onClick={this.logOut}>Logout </button>
       </div>
       </div>
     );

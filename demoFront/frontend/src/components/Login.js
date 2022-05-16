@@ -1,6 +1,6 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import { Form, Input } from "reactstrap";
-import AppNavBar from "../components/AppNavbar";
 import authService from "../services/authentication/auth-service";
 
 
@@ -15,7 +15,8 @@ export default class Login extends Component {
       username: "",
       password: "",
       loading: false,
-      message: ""
+      message: "",
+      redirect: null
     };
   }
 
@@ -41,7 +42,7 @@ export default class Login extends Component {
 
       authService.login(this.state.username, this.state.password).then(
         (response) => {
-          // this.props.history.push("/profile");
+          window.location.reload()
           this.props.changeUser(response.data.user)      
         },
         error => {
@@ -61,12 +62,13 @@ export default class Login extends Component {
   }
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect to={this.state.redirect} />
+    }
     return (
       
       <div className="col-md-12">
         <div className="card card-container">
-
-
           <Form
             onSubmit={this.handleLogin}
             ref={c => {
@@ -83,7 +85,7 @@ export default class Login extends Component {
                 onChange={this.onChangeUsername}
               />
             </div>
-
+            
             <div className="form-group">
               <label htmlFor="password">Password</label>
               <Input

@@ -7,8 +7,9 @@ class UserList extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {users: [],
-                        isAdmin: false};
+        this.state = {
+            users: [],
+            isAdmin: false};
         this.remove = this.remove.bind(this);
     }
     
@@ -50,7 +51,6 @@ class UserList extends Component {
     
     render() {
         const {users , isAdmin} = this.state;  
-
         const userList = users.map(user => {
         
             return <tr key={user.id}>
@@ -58,7 +58,6 @@ class UserList extends Component {
                 <td>{user.surname}</td>
                 <td>{user.email}</td>
                 <td>{user.roles}</td>
-            
                 <td>
                    
                   {isAdmin && (

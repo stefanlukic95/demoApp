@@ -1,14 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
 import React, { Component } from 'react';
-import { ButtonGroup, Container, Table } from 'reactstrap';
-import { Button } from 'bootstrap';
 import { Link } from 'react-router-dom';
-import { BrowserRouter, Router } from 'react-router-dom'
 import { Switch } from 'react-router-dom';
 import { Route } from 'react-router-dom';
 import Home from './components/Home';
-import Login from './containers/Login';
+import Login from './components/Login';
 import Profile from './containers/User/UserProfile';
 import UserList from './containers/User/UserList';
 import UserEdit from './containers/User/UserEdit';
@@ -23,7 +19,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.logOut = this.logOut.bind(this);
-    this.onChangeCurrentUser =this.onChangeCurrentUser.bind(this);
+    this.onChangeCurrentUser = this.onChangeCurrentUser.bind(this);
     this.state = {
       showAdminBoard: false,
       currentUser: undefined,
@@ -38,14 +34,12 @@ class App extends Component {
         currentUser: user,
         showAdminBoard: user.user.roles.includes("ADMIN"),
       });
-    }
-    
+    }  
     eventBus.on("logout", () => {
       this.logOut();
     });
   }
 
- 
   componentWillUnmount() {
     eventBus.remove("logout");
   }
@@ -77,7 +71,7 @@ class App extends Component {
 
           <div className="navbar-nav mr-auto">
             <li className="nav-item">
-              <Link to={"/home"} className="nav-link">
+              <Link to={"home"} className="nav-link">
                 Home 
               </Link>
             </li>
@@ -102,7 +96,7 @@ class App extends Component {
                 </Link>
                 <li>
                 <Link to="/profile">
-                User profile
+                 Profile
                </Link>
                </li>
               
@@ -138,8 +132,8 @@ class App extends Component {
               </Route>
               <Route path='/profile' component={Profile}></Route>
               <Route path='/home'component={Home}></Route>
-              <Route path='/usercontent' component={BoardUser}></Route>
-              <Route path='/admincontent' component={BoardAdmin}></Route>
+              <Route path='/user' component={BoardUser}></Route>
+              <Route path='/admin' component={BoardAdmin}></Route>
               <Redirect to='/home'></Redirect>
             </Switch>
             </div>

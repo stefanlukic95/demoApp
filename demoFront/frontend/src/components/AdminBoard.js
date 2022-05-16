@@ -40,7 +40,7 @@ export default class BoardAdmin extends Component {
     return (
       <div className="container">
         <header className="jumbotron">
-          <h3>{this.state.content}</h3>
+          <h3>ADMIN BOARD</h3>
         </header>
       </div>
     );

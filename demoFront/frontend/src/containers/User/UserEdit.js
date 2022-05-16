@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
-import AppNavbar from '../../components/AppNavbar';
 import authService from '../../services/authentication/auth-service';
-
 
 class UserEdit extends Component {
 
@@ -94,11 +92,11 @@ class UserEdit extends Component {
                         <Input type="text" name="adress" id="adress" value={item.adress || ''}
                                onChange={this.handleChange} autoComplete="adress"/>
                     </FormGroup>
-                    <FormGroup>
+                    {/* <FormGroup>
                         <Label for="roles">Role</Label>
                         <Input type="text" name="roles" id="roles" value={item.roles || ''}
                                onChange={this.handleChange} autoComplete="roles"/>
-                    </FormGroup>
+                    </FormGroup> */}
                     <FormGroup>
                         <Button color="primary" type="submit">Save</Button>{' '}
                         <Button color="secondary" tag={Link} to="/allUsers">Cancel</Button>
