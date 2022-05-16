@@ -52,9 +52,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     authorizeRequests()
 
                     .antMatchers("/token/*", "/").permitAll()
-                    .antMatchers(HttpMethod.POST,"/register","/login","/userId","/userId/").permitAll()
-                    .antMatchers(HttpMethod.GET ,"/allUsers","/confirm","/userId/*","/userEmail/*").permitAll()
-                    .antMatchers(HttpMethod.DELETE,"/userId/*").permitAll()
+                    .antMatchers(HttpMethod.POST,"/register","/login","/userId","/userId/*","/allUsers/*").permitAll()
+                    .antMatchers(HttpMethod.GET ,"/allUsers/*","/allUsers","/confirm","/userId/*","/userEmail/*").permitAll()
+                    .antMatchers(HttpMethod.DELETE,"/userId/*").hasAuthority("ADMIN")
                     .antMatchers(HttpMethod.PUT,"/userId/*").hasAuthority("ADMIN")
 
                     .anyRequest().authenticated()
@@ -67,7 +67,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         @Override
         public void configure(WebSecurity web) throws Exception {
-            web.ignoring().antMatchers("/generate-token","/register","/login");
+            web.ignoring().antMatchers("/allUsers","/allUsers/new","/token/generate-token","/register","/userId/new");
 
         }
 

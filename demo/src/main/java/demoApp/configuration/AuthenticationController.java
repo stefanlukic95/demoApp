@@ -6,12 +6,14 @@ import demoApp.model.User;
 import demoApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 
 import javax.security.sasl.AuthenticationException;
 
@@ -42,10 +44,10 @@ public class AuthenticationController {
         final User user = userService.findUserByEmail(loginUser.getUsername());
         if(user.isEnabled()) {
             final String token = jwtTokenUtil.generateToken(user);
-            return ResponseEntity.ok(new AuthToken(token));
+            return ResponseEntity.ok(new AuthToken(token,user));
         } else {
             final String token = jwtTokenUtil.generateToken(null);
-            return ResponseEntity.ok(new AuthToken(token));
+            return new ResponseEntity("Inavalid credentials.", HttpStatus.UNAUTHORIZED);
         }
     }
 }

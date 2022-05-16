@@ -1,15 +1,18 @@
 package demoApp.configuration;
 
+import demoApp.model.User;
+
 public class AuthToken {
 
     private String token;
-
+    private User user;
     public AuthToken(){
 
     }
 
-    public AuthToken(String token){
+    public AuthToken(String token, User user){
         this.token = token;
+        this.user = user;
     }
 
     public String getToken() {
@@ -20,4 +23,11 @@ public class AuthToken {
         this.token = token;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
