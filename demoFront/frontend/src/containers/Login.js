@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Form, Input } from "reactstrap";
+import AppNavBar from "../components/AppNavbar";
 import authService from "../services/authentication/auth-service";
 
 
@@ -39,10 +40,9 @@ export default class Login extends Component {
     });
 
       authService.login(this.state.username, this.state.password).then(
-        () => {
-          this.props.history.push("/profile");
-          console.log(this.state.username)
-          console.log(this.state.password)          
+        (response) => {
+          // this.props.history.push("/profile");
+          this.props.changeUser(response.data.user)      
         },
         error => {
           const resMessage =
@@ -62,8 +62,11 @@ export default class Login extends Component {
 
   render() {
     return (
+      
       <div className="col-md-12">
         <div className="card card-container">
+
+
           <Form
             onSubmit={this.handleLogin}
             ref={c => {

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
+import AppNavBar from "../../components/AppNavbar";
 import authService from "../../services/authentication/auth-service";   
 
 export default class Profile extends Component {
@@ -10,23 +11,26 @@ export default class Profile extends Component {
     this.state = {
       redirect: null,
       userReady:false,
-      currentUser: {username: ""}
+      currentUser: {username: ""},
+      currentToken: {token: ""}
     };
   }
 
   componentDidMount() {
     const currentUser = authService.getCurrentUser();
-    //console.log(currentUser)
+    console.log(currentUser)
 
     if (!currentUser) this.setState({ redirect: "/home" });
-    this.setState({ currentUser: currentUser, userReady: true })
-   
+    this.setState({ currentToken: currentUser, currentUser: currentUser.user, userReady: true })
+    
   }
-  
+
   logOut() {
     authService.logout();
     this.setState({
       currentUser: undefined,
+      redirect: "/home"
+
     });
   }
 
@@ -35,20 +39,21 @@ export default class Profile extends Component {
       return <Redirect to={this.state.redirect} />
     }
 
-    const { currentUser } = this.state;
-
+    const { currentToken, currentUser } = this.state;
+    
     return (
       <div >
+
         <div>
         <header className="jumbotron">
           <h3>
-            <strong>User:</strong> {" "}
-            {currentUser.username}
+            <strong>User:</strong>{" "}
+            {currentUser.name}
           </h3>
         </header>
         <p>
           <strong>Token:</strong>{" "}
-          {currentUser.token}{" "}
+          {currentToken.token}
         </p>
         <p>
           <strong>Id:</strong>{" "}

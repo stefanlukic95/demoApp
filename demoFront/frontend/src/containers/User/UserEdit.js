@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
 import AppNavbar from '../../components/AppNavbar';
+import authService from '../../services/authentication/auth-service';
 
 
 class UserEdit extends Component {
@@ -44,13 +45,15 @@ class UserEdit extends Component {
     async handleSubmit(event) {
         event.preventDefault();
         const {item} = this.state;
-    
+        const user = authService.getCurrentUser();
         await fetch('/userId' + (item.id ? '/' + item.id : ''), {
             method: (item.id) ? 'PUT' : 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
+                'Authorization': 'Bearer ' + user.token
+                
             },
             body: JSON.stringify(item),
         });
@@ -62,7 +65,6 @@ class UserEdit extends Component {
         const title = <h2>{item.id ? 'Edit Client' : 'Register'}</h2>;
     
         return <div>
-            <AppNavbar/>
             <Container>
                 {title}
                 <Form onSubmit={this.handleSubmit}>

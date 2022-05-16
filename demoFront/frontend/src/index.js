@@ -4,18 +4,23 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { HashRouter } from 'react-router-dom';
 
 const params = new URLSearchParams(window.location.search)
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  <HashRouter>
   <React.StrictMode>
+ 
     <App />
+    
+
     
       
   </React.StrictMode>
-  
+  </HashRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function

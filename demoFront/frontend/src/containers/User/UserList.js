@@ -1,31 +1,44 @@
 import React, { Component } from 'react';
 import { Button, ButtonGroup, Container, Table } from 'reactstrap';
-
 import { Link } from 'react-router-dom';
-import AppNavbar from '../../components/AppNavbar';
-
+import authService from '../../services/authentication/auth-service';
 
 class UserList extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {users: []};
+        this.state = {users: [],
+                        isAdmin: false};
         this.remove = this.remove.bind(this);
     }
-
+    
+    handleShow = ()=>{
+        const user = authService.getCurrentUser();
+        if (user) {
+            this.setState({
+              currentUser: user,
+              isAdmin: user.user.roles.includes("ADMIN"),
+            });
+          }
+    }
     componentDidMount() {
         fetch('/allUsers')
             .then(response => response.json())
-            .then(data => this.setState({users: data}));
+            .then(data => this.setState({users: data}));    
             
+            this.handleShow();
     }
-    
+
     async remove(id) {
+        const user = authService.getCurrentUser();
+
         await fetch(`/userId/${id}`, {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + user.token
+
             
             }
         }).then(() => {
@@ -33,37 +46,35 @@ class UserList extends Component {
             this.setState({users: updatedUsers});
         });
     }
+
     
     render() {
-        const {users, isLoading} = this.state;
-    
-        if (isLoading) {
-            return <p>Loading...</p>;
-        }
-    
+        const {users , isAdmin} = this.state;  
+
         const userList = users.map(user => {
+        
             return <tr key={user.id}>
                 <td>{user.name}</td>
                 <td>{user.surname}</td>
                 <td>{user.email}</td>
                 <td>{user.roles}</td>
-               
+            
                 <td>
+                   
+                  {isAdmin && (
                     <ButtonGroup>
-                        <Button size="sm" color="primary" tag={Link} to={"/userId/" + user.id}>Edit</Button>
+                        <Button size="sm"  color="primary" tag={Link} to={"/userId/" + user.id}>Edit</Button>
                         <Button size="sm" color="danger" onClick={() => this.remove(user.id)}>Delete</Button>
                     </ButtonGroup>
+                  )}
                 </td>
             </tr>
         });
     
+    
         return (
-            <div>
-                <AppNavbar/>
+            <div> 
                 <Container fluid>
-                    <div>
-                        <Button size="sm" color="success" tag={Link} to="/allUsers/new">Register</Button>
-                    </div>
                     <h3>Users</h3>
                     <Table>
                         <thead>
